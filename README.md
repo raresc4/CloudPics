@@ -9,7 +9,6 @@ CloudPics is a web application that allows users to securely create an account, 
 - *User Authentification* : Secure user registration and login using JSON Web Tokens (JWT) for authentication.
 - *Photo Upload* : Users can upload photos to the cloud.
 - *Photo Gallery* : Users can view their uploaded photos in a gallery format.
-- *Responsive Design* : The application is designed to be fully responsive and work on all devices.
 
 # Technologies Used
 
