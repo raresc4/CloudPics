@@ -1,4 +1,5 @@
 const  User  = require('../../models/user-model.js');
+const jwt = require('jsonwebtoken');
 
 const createUser = async (req, res) => {
     try {
@@ -61,6 +62,7 @@ const verifyUser = async (req, res) => {
         if (user.password !== password) {
             return res.status(200).send({ message: 'Invalid password', data: false });
         }
+        res.cookie('token', jwt.sign({ username }, process.env.JWT_SECRET), { httpOnly: true });
         return res.status(200).send({ message: 'Succes', data: true });
     } catch (error) {
         return res.status(500).json({ message: error.message , data : false});

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 export default function LoginPage(){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [next, setNext] = useState(false);
     const navigate = useNavigate();
     
     return (
@@ -68,7 +69,8 @@ export default function LoginPage(){
                                         body : JSON.stringify({username, password}),
                                         headers: {
                                             'Content-Type': 'application/json'
-                                          }   
+                                          },
+                                        'credentials': 'include'  
                                     }
                                 );
                                 if (!response.ok) {
@@ -90,7 +92,7 @@ export default function LoginPage(){
                                     alert("Invalid password");
                                     return;
                                   }
-                                navigate(`/user/${username}`)
+                                  navigate(`/user/${username}`)
                             }
                             catch (error) {
                                 console.error("Error:", error);

@@ -7,6 +7,7 @@ export default function ProfilePage() {
   const [photoCount, setPhotoCount] = useState(0);
   const [dateOfLast, setDateOfLast] = useState('');
   const [accountCreation, setAccountCreation] = useState('');
+  const [isAllowed, setIsAllowed] = useState(true);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -31,16 +32,33 @@ export default function ProfilePage() {
         console.error("Error:", error);
       }
     };
-
     fetchUserData();
+    (async () => {
+            const response = await fetch(`http://localhost:4949/api/jwt/getUsername`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+            });
+            const content = await response.json();
+            const token = content.data;
+            if(token.username !== username || !token.username) {
+                setIsAllowed(false);
+                console.log("NOT ALLOWED");
+            }
+        })();
+
   }, [username]);
 
-  return (
+  return isAllowed ? (
     <UserProfile 
       username={username} 
       photoNr={photoCount} 
       dateOfLast={dateOfLast} 
       accountCreation={accountCreation} 
     />
-  );
+  ) : (
+    <div>NOT ALLOWED</div>
+  )
 }
