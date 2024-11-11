@@ -21,6 +21,9 @@ app.use(express.urlencoded({ extended: true }));
 const api = require('./api/index.js');
 
 app.use('/api', api);
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
 
 app.listen(port, async () => {
     console.log(`Server running at http://localhost:${port}`),
